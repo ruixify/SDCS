@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  cache_service_0:
+    build: .
+    ports:
+      - "9527:8080"
+    networks:
+      server:
+          ipv4_address: 192.168.0.2
+    command: ["java", "-jar", "/app/target/sdcs_java-1.0-jar-with-dependencies.jar", "8887"]
+
+  cache_service_1:
+    build: .
+    ports:
+      - "9528:8080"
+    networks:
+      server:
+          ipv4_address: 192.168.0.3
+    command: ["java", "-jar", "/app/target/sdcs_java-1.0-jar-with-dependencies.jar", "8888"]
+
+  cache_service_2:
+    build: .
+    ports:
+      - "9529:8080"
+    networks:
+      server:
+          ipv4_address: 192.168.0.4
+    command: ["java", "-jar", "/app/target/sdcs_java-1.0-jar-with-dependencies.jar", "8889"]
+
+networks:
+  server:
+    driver:
+      bridge
+    ipam:
+      config:
+        - subnet: 192.168.0.0/16
+          gateway: 192.168.0.1
